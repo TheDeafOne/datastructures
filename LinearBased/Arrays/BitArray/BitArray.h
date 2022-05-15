@@ -1,31 +1,23 @@
 // -lstdc++
 #include <string>
-#ifndef OFILE_H_
-#define OFILE_H_
+#ifndef BITARRAY_H_
+#define BITARRAY_H_
+
 class BitArray {
     private:
-        /**
-         * @brief Expand the array
-         * given an index, expand the array accordingly regardless of bit index
-         * 
-         * @param ind index of array where required bit is stored
-         */
-        void expand(int ind);
-
         // current size of array
-        size_t size = 128;
+        size_t array_size;
         /**
-         * @brief int array, where each int is 4 bits
-         * Array begins at 512 bits (128 ints) and is expanded from there
+         * @brief int array, where each int is 32 bits
          */
-        int array[128];
+        int* array;
+
 
     public:
         /**
          * @brief Construct a new Bit Array object
-         * sets up an empty array of size=128 (meaning 512 inital bits)
          */
-        BitArray();
+        BitArray(size_t size);
 
         /**
          * @brief Set a bit
@@ -62,11 +54,11 @@ class BitArray {
 
         /**
          * @brief returns size of bit array (not array)
-         * ints in c++ are generally 4 bits, so the array size is multiplied by 4 to get actual size of bit array
+         * ints in c++ are 32 bits, so the array size is multiplied by 32 to get actual size of bit array
          * 
          * @return int size of bit array 
          */
-        int size() { return size * 4; };
+        int size() { return array_size * 32; };
 };
 
 #endif
