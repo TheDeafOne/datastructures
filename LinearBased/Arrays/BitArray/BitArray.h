@@ -6,6 +6,7 @@ class BitArray {
     private:
         // current size of array
         size_t array_size;
+
         /**
          * @brief int array, where each int is 32 bits
          */
@@ -15,6 +16,8 @@ class BitArray {
     public:
         /**
          * @brief Construct a new Bit Array object
+         * 
+         * @param size length of array
          */
         BitArray(size_t size);
 
@@ -48,7 +51,7 @@ class BitArray {
          * @brief returns size of bit array (not array)
          * ints in c++ are 32 bits, so the array size is multiplied by 32 to get actual size of bit array
          * 
-         * @return int size of bit array 
+         * @return size_t size of bit array 
          */
         size_t size() { return array_size * 32; };
 };
