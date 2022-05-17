@@ -50,7 +50,7 @@ class BitArray {
          * 
          * @return int size of bit array 
          */
-        int size() { return array_size * 32; };
+        size_t size() { return array_size * 32; };
 };
 
 #endif
