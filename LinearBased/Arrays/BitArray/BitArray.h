@@ -1,5 +1,4 @@
 // -lstdc++
-#include <string>
 #ifndef BITARRAY_H_
 #define BITARRAY_H_
 
@@ -44,13 +43,6 @@ class BitArray {
          * @return false if bit is 0
          */
         bool testBit(int k);
-
-        /**
-         * @brief Return array as a string
-         * 
-         * @return std::string string representation of the full bit array
-         */
-        std::string toString();
 
         /**
          * @brief returns size of bit array (not array)
