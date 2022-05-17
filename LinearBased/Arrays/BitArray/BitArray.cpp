@@ -1,13 +1,20 @@
 #include <iostream>
+#include <cmath> // requires -lm
 #include "BitArray.h"
 using namespace std;
 
+/**
+ * @brief Construct a new Bit Array object
+ * 
+ * @param size size of array in ints
+ */
 BitArray::BitArray(size_t size) {
     if (size < 0) {
         throw "Negative array size";
     }
+    array_size = ceil(size/32.0);
     // allocate memory for array of variable size
-    void* calloc(int* array, size_t size); 
+    array = (int*) calloc(size, sizeof(int)); 
 }
 
 /**
@@ -57,6 +64,7 @@ bool BitArray::testBit(int k) {
     int bit_ind = k % 32; // bit index
     int bit = 1; // new bit
     bit = bit << bit_ind; // shift new bit to correct bit index
-    return (array[ind] & bit_ind) != 0; // check that bit != 0
+    return (array[ind] & bit) != 0; // check that bit != 0
 }
+
 
