@@ -13,7 +13,7 @@ CircularBuffer::CircularBuffer(size_t size) {
     }
     buffer_size = size;
     // allocate memory for array of variable size
-    void* calloc(int* buffer, size_t size);
+    buffer = (int*) calloc(size, sizeof(int)); 
 }
 
 void CircularBuffer::write(int value) {
