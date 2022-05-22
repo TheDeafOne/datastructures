@@ -19,9 +19,11 @@ DynamicArray::DynamicArray() {
  * @return int value gotten from array at the given index
  */
 int DynamicArray::get(int idx) {
+    // check for out of bounds error
     if (idx > add_index || add_index == 0) {
         throw invalid_argument("index out of bounds");
     }
+
     return array[idx];
 }
 
@@ -32,10 +34,12 @@ int DynamicArray::get(int idx) {
  * @param value int value to replace value in array
  */
 void DynamicArray::set(int idx, int value) {
+    // check for out of bounds error
     if (idx > add_index) {
         throw invalid_argument("index out of bounds");
     }
-    array[idx] = value;
+
+    array[idx] = value; // set value
 }
 
 /**
@@ -44,7 +48,9 @@ void DynamicArray::set(int idx, int value) {
  * @param value int value to be added to the array
  */
 void DynamicArray::add(int value) {
-    array[add_index++] = value;
+    array[add_index++] = value; // set value and increment add_index
+
+    // check index of add_index and expand accordingly
     if (add_index == array_size - 1) {
         expand();
     }
@@ -57,17 +63,24 @@ void DynamicArray::add(int value) {
  * @param value int value to be added to the array
  */
 void DynamicArray::insert(int idx, int value) {
+    // check for out of bounds error
     if (idx > add_index) {
         throw invalid_argument("index out of bounds");
-    } else if (idx == array_size - 1) {
+    }
+
+    // check idx and expand array if necessary
+    if (idx == array_size - 1) {
         expand();
     }
+
+    // shift values to the right once and insert current value
     for (int i = idx; i < add_index; i++) {
-        int tmp = array[i];
-        array[i] = value;
-        value = tmp;
+        int tmp = array[i]; // hold current index
+        array[i] = value; // set current index to current value
+        value = tmp; // set new value to held index
     }
-    add_index++;
+
+    add_index++; // increment add_index to maintain user aray
 }
 
  /**
@@ -77,15 +90,20 @@ void DynamicArray::insert(int idx, int value) {
  * @return int value that was removed
  */
 int DynamicArray::remove(int idx) {
+    // check for out of bounds eror
     if (idx > add_index) {
         throw invalid_argument("index out of bounds");
     }
+
     int tmp = array[idx];
+
+    // shift values to the left, implicitly deleting the required value
     for (int i = idx; i < add_index; i++) {
         array[i] = array[i+1];
     }
-    add_index--;
-    return tmp;
+
+    add_index--; // decrement add_index to maintain user array size
+    return tmp; // return deleted value
 }
 
 /**
@@ -94,8 +112,10 @@ int DynamicArray::remove(int idx) {
  * 
  */
 void DynamicArray::expand() {
-    array_size = array_size * GROWTH_FACTOR;
+    array_size = array_size * GROWTH_FACTOR; // factor at which array is grown
     int* new_array = new int[array_size]();
+
+    // copy old array to new array
     for (int i = 0; i < add_index; i++) {
         new_array[i] = array[i];
     }
