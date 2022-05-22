@@ -4,7 +4,8 @@ using namespace std;
 
 void printBuffer(CircularBuffer buffer) {
     cout << "[";
-    for (int i = 0; i < 9; i++){ // reading only 9 values so a comma isn't placed after the 10th 
+    // reading only 9 values so a comma isn't placed after the 10th 
+    for (int i = 0; i < 9; i++){ 
         cout << buffer.read() << ", ";
     }
     cout << buffer.read() << "]" << endl;
