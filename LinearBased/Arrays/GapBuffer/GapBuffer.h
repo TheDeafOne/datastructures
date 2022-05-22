@@ -2,10 +2,9 @@
 #ifndef GAPBUFFER_H_
 #define GAPBUFFER_H_
 
-class BitArray {
+class GapBuffer {
     private:
-       
-
+        
     public:
        
 };
