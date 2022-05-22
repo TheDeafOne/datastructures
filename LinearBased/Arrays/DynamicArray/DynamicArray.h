@@ -5,7 +5,7 @@
 class DynamicArray {
     private:
         // growth factor for expand method
-        const int GROWTH_FACTOR = 2; // some use 1.5 or the golden ratio
+        static const int GROWTH_FACTOR = 2; // some use 1.5 or the golden ratio
 
         // actual array size
         int array_size;
