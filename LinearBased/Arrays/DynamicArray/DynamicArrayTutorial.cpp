@@ -4,8 +4,11 @@ using namespace std;
 
 int main() {
         DynamicArray da;
-        da.add(1);
-        cout << da.get(0) << endl;
-        da.remove(0);
-        cout << da.get(0) << endl;
+        
+        for (int i = 0; i < 10; i++){
+                da.add(i);
+        }
+
+        cout << da.size() << endl;
+
 }
