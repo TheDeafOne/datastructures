@@ -44,7 +44,7 @@ class DynamicArray {
          * @param idx given index
          * @param value int value to replace value in array
          */
-        void set(int idx, int value);
+        int set(int idx, int value);
 
         /**
          * @brief adds a given value to the end of the array

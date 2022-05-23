@@ -32,14 +32,16 @@ int DynamicArray::get(int idx) {
  * 
  * @param idx given index
  * @param value int value to replace value in array
+ * @return tmp int value being replaced
  */
-void DynamicArray::set(int idx, int value) {
+int DynamicArray::set(int idx, int value) {
     // check for out of bounds error
     if (idx > add_index) {
         throw invalid_argument("index out of bounds");
     }
-
+    int tmp = array[idx]; // get return value
     array[idx] = value; // set value
+    return tmp;
 }
 
 /**
