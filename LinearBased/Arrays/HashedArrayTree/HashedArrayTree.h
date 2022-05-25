@@ -5,10 +5,7 @@
 class HashedArrayTree {
     private:
         // size of array from end to end
-        int array_size;
         int root_size;
-        // current power of 2 that root array is at
-        int power;
         // root array containing leaf arrays
         int** root_array;
         // index at which next leaf array will be added
