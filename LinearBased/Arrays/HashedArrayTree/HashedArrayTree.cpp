@@ -4,44 +4,54 @@
 using namespace std;
 
 HashedArrayTree::HashedArrayTree() {
-    power = 0;
-    leaf_size = 1;
+    power = 1;
+    root_size = 2;
     leaf_index = 0;
-    root_array = new int*[power](); 
-    newLeaf(root_array);
-}
-
-int HashedArrayTree::get(int idx) {
-    int root_index = add_index / power; // get root index
-    int leaf_index = add_index % power; // get leaf index
-    return root_array[root_index][leaf_index];
+    array_size = 0;
+    add_index = 0;
+    root_array = new int*[root_size](); 
+    newLeaf();
 }
 
 void HashedArrayTree::add(int value) {
-    int root_index = add_index / power; // get root index
-    int leaf_index = add_index % power; // get leaf index
-    root_array[root_index][leaf_index] = value;
+    int root_idx = add_index / root_size; // get root index
+    int leaf_idx = add_index % root_size; // get leaf index
+
+    root_array[root_idx][leaf_idx] = value;
+
+    if (root_idx == leaf_index) {
+        newLeaf();
+    }
+
     add_index++;
-    if (add_index == pow(2,power)) {
+    if (add_index == root_size * root_size) {
         expand();
     }
 }
 
-void HashedArrayTree::newLeaf(int** array, int* array_values = {}, int array_size = 0) {
-    array[leaf_index] = new int[power]();
-    for (int i = 0; i < array_size; i++) {
-        array[leaf_index][i] = array_values[i];
-    }
+int HashedArrayTree::get(int idx) {
+    int root_idx = idx / root_size; // get root index
+    int leaf_idx = idx % root_size; // get leaf index
+    return root_array[root_idx][leaf_idx];
+}
+
+void HashedArrayTree::newLeaf() {
+    root_array[leaf_index] = new int[root_size]();
     leaf_index++;
+    array_size += root_size;
 }
 
 void HashedArrayTree::expand() {
     power++;
-    int end_index = leaf_index/2;
+    array_size = 0;
     leaf_index = 0;
-    int** new_root_array = new int*[leaf_size]();
-    for (int i = 0; i < end_index; i++) {
-        newLeaf(new_root_array, root_array[i], leaf_size);
+    root_size *= 2;
+    int end_index = leaf_index/2;
+    int** old_root_array = root_array;
+    root_array = new int*[root_size]();
+    int end_value = add_index;
+    add_index = 0;
+    for (int i = 0; i < add_index; i++) {
+        add(old_root_array[leaf_index][i % 16]);
     }
-    leaf_size *= 2;
 }

@@ -6,7 +6,7 @@ class HashedArrayTree {
     private:
         // size of array from end to end
         int array_size;
-        int leaf_size;
+        int root_size;
         // current power of 2 that root array is at
         int power;
         // root array containing leaf arrays
@@ -18,7 +18,7 @@ class HashedArrayTree {
                 
         void expand();
 
-        void newLeaf(int** array, int* array_values = {}, int array_size = 0);
+        void newLeaf();
 
     public:
        HashedArrayTree();
@@ -33,9 +33,9 @@ class HashedArrayTree {
 
        int remove(int idx);
 
-       int size() { return array_size; }
+       int size() { return add_index; }
 
-       int rootSize() { return power; }
+       int rootSize() { return root_size; }
 
        
 };
