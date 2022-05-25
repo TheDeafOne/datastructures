@@ -4,11 +4,11 @@ using namespace std;
 
 int main(){
     HashedArrayTree hat;
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 100; i++){
         hat.add(i);
     }
 
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 100; i++){
         cout << hat.get(i) << endl;
     }
 
