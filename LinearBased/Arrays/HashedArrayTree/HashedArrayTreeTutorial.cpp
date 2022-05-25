@@ -4,6 +4,12 @@ using namespace std;
 
 int main(){
     HashedArrayTree hat;
-    hat.add(1);
-    cout << hat.get(0) << endl;
+    for (int i = 0; i < 10; i++){
+        hat.add(i);
+    }
+
+    for (int i = 0; i < 10; i++){
+        cout << hat.get(i) << endl;
+    }
+
 }
