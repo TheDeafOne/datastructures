@@ -3,8 +3,12 @@
 #include "HashedArrayTree.h"
 using namespace std;
 
+/**
+ * @brief Construct a new Hashed Array Tree object and initialize all variables necessary
+ * 
+ */
 HashedArrayTree::HashedArrayTree() {
-    // initialize values
+    // initialize variables
     root_size = 2;
     leaf_index = 0;
     add_index = 0;
@@ -12,6 +16,11 @@ HashedArrayTree::HashedArrayTree() {
     newLeaf();
 }
 
+/**
+ * @brief add a given value to the next empty point in the array
+ * 
+ * @param value to be added to the array
+ */
 void HashedArrayTree::add(int value) {
     int root_idx = add_index / root_size; // get root index
     int leaf_idx = add_index % root_size; // get leaf index
@@ -28,17 +37,33 @@ void HashedArrayTree::add(int value) {
     }
 }
 
+/**
+ * @brief get a value from the array using the given index
+ * 
+ * @param idx the given index at which to find the value
+ * @return int the value found in the array at idx
+ */
 int HashedArrayTree::get(int idx) {
     int root_idx = idx / root_size; // get root index
     int leaf_idx = idx % root_size; // get leaf index
     return root_array[root_idx][leaf_idx]; 
 }
 
+
+/**
+ * @brief make a new leaf array and set the next open spot in the root array the new leaf array
+ * 
+ */
 void HashedArrayTree::newLeaf() {
     root_array[leaf_index] = new int[root_size](); // make a new leaf
     leaf_index++; // increment leaf index to maintain position of the next leaf
 }
 
+/**
+ * @brief multiply the size of the root array and leaf arrays by 2.
+ * make a new root array and copy the information from the old array to the new array
+ * 
+ */
 void HashedArrayTree::expand() {
     int old_root_size = root_size; // keep old root size for indexing the HAT
     int end_value = add_index; // get end point to stop copying old array to new array
