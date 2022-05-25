@@ -49,6 +49,60 @@ int HashedArrayTree::get(int idx) {
     return root_array[root_idx][leaf_idx]; 
 }
 
+/**
+ * @brief set the old value at the given index in the array to the new given value
+ * 
+ * @param idx index at which to change the value
+ * @param value new value to replace the old one
+ * @return int old value that was replaced
+ */
+int HashedArrayTree::set(int idx, int value) {
+    int root_idx = idx / root_size; // get root index
+    int leaf_idx = idx % root_size; // get leaf index
+    int tmp = root_array[root_idx][leaf_idx];
+    root_array[root_idx][leaf_idx] = value; 
+    return tmp;
+}
+
+/**
+ * @brief insert the given value at the given index
+ * 
+ * @param idx index at which to insert the given value
+ * @param value being inserted
+ */
+void HashedArrayTree::insert(int idx, int value) {
+    int tmp = root_array[idx / root_size][idx % root_size]; // store value at given index 
+    int end_index = add_index; // get old add_index value to stop loop at
+    add_index = idx; 
+
+    // copy previous value to the next one over
+    for (int i = add_index; i <= end_index; i++) {
+        set(i, value); // use set instead of add so no checks have to be done for adding leafs or expansion
+        add_index++; // manually handle add_index incrementation
+        value = tmp; // set new value with tmp
+        tmp = root_array[(i+1) / root_size][(i+1) % root_size]; // find next tmp value in array
+    }
+}
+
+/**
+ * @brief remove the value at the given index
+ * 
+ * @param idx index in the array at which the value should be removed
+ * @return int value being removed
+ */
+int HashedArrayTree::remove(int idx) {
+    int value = root_array[idx / root_size][idx % root_size]; // get value being removed
+    int end_index = add_index; // get old add_index value to stop loop at
+    add_index = idx; 
+
+    // copy next value onto the current index, implicitly removing the value at the given index
+    for (int i = add_index; i < end_index; i++) {
+        int next_val = root_array[(i+1) / root_size][(i+1) % root_size]; // get the next value
+        set(i, next_val); // use set instead of add so no checks have to be done for adding leafs or expansion
+        add_index++; // manually handle add_index incrementation
+    }
+    return value;
+}
 
 /**
  * @brief make a new leaf array and set the next open spot in the root array the new leaf array
@@ -66,7 +120,7 @@ void HashedArrayTree::newLeaf() {
  */
 void HashedArrayTree::expand() {
     int old_root_size = root_size; // keep old root size for indexing the HAT
-    int end_value = add_index; // get end point to stop copying old array to new array
+    int end_index = add_index; // get end point to stop copying old array to new array
     root_size *= 2; // *2 to maintain 2^n requirements of HAT (this could be some other number)
     add_index = 0; // prep add index for copying old array to new array
     leaf_index = 0; // prep leaf index
@@ -77,7 +131,7 @@ void HashedArrayTree::expand() {
     newLeaf();
     
     // copy data from old array to the new array
-    for (int i = 0; i < end_value; i++) {
+    for (int i = 0; i < end_index; i++) {
         add(old_root_array[i / old_root_size][i % old_root_size]); // use same indexing as add
     }
 }
