@@ -1,5 +1,4 @@
 #include <iostream>
-#include <math.h> // include -lm
 #include "HashedArrayTree.h"
 using namespace std;
 
