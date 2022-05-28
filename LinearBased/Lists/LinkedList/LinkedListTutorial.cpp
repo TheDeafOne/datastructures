@@ -7,7 +7,13 @@ int main() {
     for (int i = 0; i < 100; i++) {
         list.add(i+1);
     }
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < list.size(); i++) {
         cout << list.get(i) << endl;
     }
+
+    list.insert(100, 101);
+    for (int i = 0; i < list.size(); i++) {
+        cout << list.get(i) << endl;
+    }
+
 }
