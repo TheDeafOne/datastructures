@@ -11,9 +11,16 @@ int main() {
         cout << list.get(i) << endl;
     }
 
-    list.insert(100, 101);
+    list.insert(99, 100);
     for (int i = 0; i < list.size(); i++) {
         cout << list.get(i) << endl;
     }
+
+    cout << "item removed: " << list.remove(99) << endl;
+
+    for (int i = 0; i < list.size(); i++) {
+        cout << list.get(i) << endl;
+    }
+
 
 }
